@@ -1,4 +1,3 @@
-/* eslint-disable no-unused-vars */
 import { Card, Col, Input, Row } from "antd";
 import millify from "millify";
 import React, { useEffect, useState } from "react";
