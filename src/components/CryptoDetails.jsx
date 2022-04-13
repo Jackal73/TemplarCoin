@@ -20,6 +20,7 @@ import {
   useGetCryptoHistoryQuery,
 } from "../services/cryptoApi";
 import LineChart from "./LineChart";
+import Loader from "./Loader";
 
 const { Title, Text } = Typography;
 const { Option } = Select;
@@ -27,7 +28,7 @@ const { Option } = Select;
 // eslint-disable-next-line arrow-body-style
 const CryptoDetails = () => {
   const { coinId } = useParams();
-  const [timePeriod, setTimePeriod] = useState("7d");
+  const [timePeriod, setTimePeriod] = useState("24h");
   const { data, isFetching } = useGetCryptoDetailsQuery(coinId);
   const { data: coinHistory } = useGetCryptoHistoryQuery({
     coinId,
@@ -36,7 +37,7 @@ const CryptoDetails = () => {
 
   const cryptoDetails = data?.data?.coin;
   // const cryptoDetails = data?.coin;
-  if (isFetching) return "Loading ... ";
+  if (isFetching) return <Loader />;
   // console.log(data);
 
   const time = ["3h", "24h", "7d", "30d", "3m", "1y", "3y", "5y"];
@@ -151,8 +152,9 @@ const CryptoDetails = () => {
               {cryptoDetails?.name}: Value Statistics
             </Title>
             <p>
-              A statistical overview of {cryptoDetails?.name}, such as the rank,
-              trading volume, and the base and quote currency.
+              A statistical overview of {cryptoDetails?.name}.
+              {/* , such as the rank,
+              trading volume, and the base and quote currency. */}
             </p>
           </Col>
           {stats.map(({ icon, title, value }) => (
